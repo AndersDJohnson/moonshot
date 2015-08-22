@@ -1,7 +1,7 @@
 # moonshot
 Screenshots with Selenium.
 
-Just specify a list websites to capture, and at which window resolutions for each.
+Just specify a list websites to capture, and at which window resolutions for each. Full-page screenshots are supported.
 
 Etymology: *Selenium* comes from the Greek *selēnē* (*σελήνη*) meaning *moon*. We take *shot*s of screens. Hence, *moon*-*shot*, or *moonshot*. 
 
