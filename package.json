@@ -13,7 +13,6 @@
     "es6-shim": "^0.33.1",
     "mkdirp": "^0.5.1",
     "sanitize-filename": "^1.4.2",
-    "selenium-server": "^2.47.1",
     "selenium-standalone": "git+https://github.com/AndersDJohnson/selenium-standalone.git#AndersDJohnson",
     "webdriverio": "^3.1.0"
   }
