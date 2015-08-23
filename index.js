@@ -14,6 +14,12 @@ var moonshot = function (configs, options) {
   var seleniumStandalone = require('selenium-standalone');
   var webdriverio = require('webdriverio');
 
+  var extendOptions = function (options, defaultOptions) {
+    options = defaults(options, defaultOptions);
+    options.selenium = defaults(options.selenium, defaultOptions.selenium);
+    options.seleniumServer = defaults(options.seleniumServer, defaultOptions.seleniumServer);
+  };
+
   options = options || {};
 
   var defaultOptions = {
@@ -43,10 +49,7 @@ var moonshot = function (configs, options) {
     }
   };
 
-  options = defaults(options, defaultOptions);
-  options.selenium = defaults(options.selenium, defaultOptions.selenium);
-  options.seleniumServer = defaults(options.seleniumServer, defaultOptions.seleniumServer);
-
+  extendOptions(options, defaultOptions);
 
   var jobs = [];
 
@@ -55,6 +58,11 @@ var moonshot = function (configs, options) {
     var fullUrl = protocolify(url);
 
     var dims = config[1];
+
+    var specificOptions = config[2] || {};
+
+    extendOptions(specificOptions, options);
+
     dims.forEach(
       function (dim) {
         var job = {};
