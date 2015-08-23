@@ -1,5 +1,5 @@
 # moonshot
-Screenshots with Selenium.
+Screenshots of web with Selenium.
 
 Just specify a list websites to capture, and at which window resolutions for each. Full-page screenshots are supported.
 

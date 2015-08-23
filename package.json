@@ -1,7 +1,7 @@
 {
   "name": "moonshot",
   "version": "1.0.0",
-  "description": "",
+  "description": "Screenshots of web with Selenium.",
   "main": "index.js",
   "scripts": {
     "test": "node test/test.js"
