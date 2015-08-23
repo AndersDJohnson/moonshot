@@ -23,9 +23,7 @@ var moonshot = function (configs, options) {
       return filenamifyUrl(job.fullUrl) + '-' + job.w + 'x' + job.h + '.png';
     },
     selenium: {
-      desiredCapabilities: {
-        firefox_binary: '/Users/anders/bin/firefox'
-      }
+      desiredCapabilities: {}
     },
     seleniumServer: {
       version: '2.47.0',
