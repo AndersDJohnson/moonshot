@@ -11,9 +11,17 @@
   "dependencies": {
     "async": "^1.4.2",
     "es6-shim": "^0.33.1",
+    "filenamify-url": "^1.0.0",
+    "isarray": "0.0.1",
+    "isobject": "^2.0.0",
     "mkdirp": "^0.5.1",
+    "parse-image-dimensions": "AndersDJohnson/parse-image-dimensions#AndersDJohnson",
+    "protocolify": "^1.0.1",
     "sanitize-filename": "^1.4.2",
     "selenium-standalone": "git+https://github.com/AndersDJohnson/selenium-standalone.git#AndersDJohnson",
     "webdriverio": "^3.1.0"
+  },
+  "devDependencies": {
+    "rimraf": "^2.4.2"
   }
 }

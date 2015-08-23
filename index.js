@@ -1,9 +1,14 @@
 var moonshot = function (configs, options) {
 
   require('es6-shim');
+  var isArray = require('isarray');
+  var isObject = require('isobject');
   var path = require('path');
   var mkdirp = require('mkdirp');
   var sanitizeFilename = require('sanitize-filename');
+  var filenamifyUrl = require('filenamify-url');
+  var protocolify = require('protocolify');
+  var parseImageDimensions = require('parse-image-dimensions');
   var async = require('async');
   var seleniumStandalone = require('selenium-standalone');
   var webdriverio = require('webdriverio');
@@ -17,26 +22,44 @@ var moonshot = function (configs, options) {
   options.parallelLimit = options.parallelLimit || 2;
   options.outDir = options.outDir || 'out';
   options.fname = options.fname || function (job) {
-    return job.fullUrl + '-' + job.w + 'x' + job.h + '.png';
+    return filenamifyUrl(job.fullUrl) + '-' + job.w + 'x' + job.h + '.png';
   }
 
   var jobs = [];
 
   configs.forEach(function (config) {
     var url = config[0];
-    var fullUrl = url;
-
-    if (! fullUrl.includes(':')) {
-      fullUrl = 'http://' + fullUrl;
-    }
+    var fullUrl = protocolify(url);
 
     var dims = config[1];
     dims.forEach(
       function (dim) {
         var job = {};
         job.fullUrl = fullUrl;
-        job.w = dim[0];
-        job.h = dim[1] || 600;
+        var w;
+        var y;
+        if (isArray(dim)) {
+          w = dim[0];
+          h = dim[1];
+        }
+        if (typeof dim === 'number') {
+          dim = '' + dim;
+        }
+        if (typeof dim === 'string') {
+          dim = parseImageDimensions(dim);
+        }
+        if (isObject(dim)) {
+          w = dim.width || dim.w;
+          h = dim.height || dim.h;
+        }
+        if (!h) {
+          h = w;
+        }
+        if (!w || !h) {
+          throw new Error("Could not parse dimensions.");
+        }
+        job.w = w;
+        job.h = h;
         job.fname = options.fname(job);
         job.fname = sanitizeFilename(job.fname);
         job.fname = path.join(options.outDir, job.fname);
