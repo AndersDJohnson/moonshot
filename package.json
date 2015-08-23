@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "async": "^1.4.2",
+    "defaults": "^1.0.2",
     "es6-shim": "^0.33.1",
     "filenamify-url": "^1.0.0",
     "isarray": "0.0.1",

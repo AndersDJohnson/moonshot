@@ -3,6 +3,7 @@ var moonshot = function (configs, options) {
   require('es6-shim');
   var isArray = require('isarray');
   var isObject = require('isobject');
+  var defaults = require('defaults');
   var path = require('path');
   var mkdirp = require('mkdirp');
   var sanitizeFilename = require('sanitize-filename');
@@ -14,16 +15,40 @@ var moonshot = function (configs, options) {
   var webdriverio = require('webdriverio');
 
   options = options || {};
-  options.selenium = options.selenium || {
-    desiredCapabilities: {
-      firefox_binary: '/Users/anders/bin/firefox'
+
+  var defaultOptions = {
+    parallelLimit: 2,
+    outDir: 'out',
+    fname: function (job) {
+      return filenamifyUrl(job.fullUrl) + '-' + job.w + 'x' + job.h + '.png';
+    },
+    selenium: {
+      desiredCapabilities: {
+        firefox_binary: '/Users/anders/bin/firefox'
+      }
+    },
+    seleniumServer: {
+      version: '2.47.0',
+      drivers: {
+        chrome: false,
+        ie: false
+      },
+      spawnOptions: {
+        stdio: 'inherit'
+      },
+      progressCb: function () {
+        console.log('progress', arguments);
+      },
+      logger: function () {
+        console.log('logger', arguments);
+      }
     }
   };
-  options.parallelLimit = options.parallelLimit || 2;
-  options.outDir = options.outDir || 'out';
-  options.fname = options.fname || function (job) {
-    return filenamifyUrl(job.fullUrl) + '-' + job.w + 'x' + job.h + '.png';
-  }
+
+  options = defaults(options, defaultOptions);
+  options.selenium = defaults(options.selenium, defaultOptions.selenium);
+  options.seleniumServer = defaults(options.seleniumServer, defaultOptions.seleniumServer);
+
 
   var jobs = [];
 
@@ -103,22 +128,7 @@ var moonshot = function (configs, options) {
     );
   };
 
-  var sopts = {
-    version: '2.47.0',
-    drivers: {
-      chrome: false,
-      ie: false
-    },
-    spawnOptions: {
-      stdio: 'inherit'
-    },
-    progressCb: function () {
-      console.log('progress', arguments);
-    },
-    logger: function () {
-      console.log('logger', arguments);
-    }
-  };
+  var sopts = options.seleniumServer;
 
   var start = function () {
     seleniumStandalone.start(sopts, function(err, child) {
