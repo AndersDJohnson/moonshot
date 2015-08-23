@@ -111,10 +111,6 @@ var moonshot = function (configs, options) {
         var client = webdriverio.remote(options.selenium);
         client
           .init()
-          .windowHandle()
-          .then(function () {
-            console.log('wh', arguments);
-          })
           .windowHandleSize({width: job.w, height: job.h})
           .url(job.fullUrl)
           .saveScreenshot(job.fname, function(err, screenshot, response) {
