@@ -16,11 +16,11 @@ npm i --save moonshot
 
 ## Use
 
-```
+```js
 var moonshot = require('moonshot');
 moonshot([
- ['google.com', [[1280,800], [1024,768], '800x600', '320']],
- ['andrz.me', [...]]
+ ['google.com', [ [1280,800], [1024,768], '800x600', '320'] ],
+ ['andrz.me', [ /* ... */ ] ]
 ]);
 ```
 
