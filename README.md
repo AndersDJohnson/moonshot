@@ -19,7 +19,10 @@ npm i --save moonshot
 ```js
 var moonshot = require('moonshot');
 moonshot([
- ['google.com', [ [1280,800], [1024,768], '800x600', '320'] ],
+ ['google.com', [
+   // a couple of ways to specify resolutions:
+   [1280,800], '800x600', /* width only */ '320', {width: 1024, height: 768}
+ ]],
  ['andrz.me', [ /* ... */ ] ]
 ]);
 ```
