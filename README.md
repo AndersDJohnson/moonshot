@@ -19,8 +19,8 @@ npm i --save moonshot
 ```
 var moonshot = require('moonshot');
 moonshot([
- ['google.com', [[1280,800],[1024,768],[800,600],[320,480]]],
- ['andrz.me', [[1280,800],[1024,768],[800,600],[320,480]]]
+ ['google.com', [[1280,800], [1024,768], '800x600', '320']],
+ ['andrz.me', [...]]
 ]);
 ```
 
